@@ -115,8 +115,8 @@ recyclerview.apply {
 ```
 
 ## Sample code
-### MainActivity.kt
-
+### [Reusable adapter](https://github.com/azmirizkifar20/reusable-recyclerview-adapter/blob/master/app/src/main/java/org/marproject/reusablerecyclerviewadapter/sample/noadapter/MainActivity.kt)
+### [Reusable adapter with searchView](https://github.com/azmirizkifar20/reusable-recyclerview-adapter/blob/master/app/src/main/java/org/marproject/reusablerecyclerviewadapter/sample/searchview/MainActivity.kt)
 
 ## Show your support
 Give a star and fork if this project helped you!
