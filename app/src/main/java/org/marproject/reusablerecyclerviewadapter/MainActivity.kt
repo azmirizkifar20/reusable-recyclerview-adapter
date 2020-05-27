@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // create data
-        val listNegara = mutableListOf(
+        val listNegara = listOf(
             Negara("Indonesia", "jakarta"),
             Negara("Malaysia", "Kuala Lumpur"),
             Negara("Thailand", "Bangkok"),

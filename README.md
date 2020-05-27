@@ -24,7 +24,7 @@ dependencies {
 }
 ```
 
-## Sample Code 
+## How to use
 ### #1 Create xml item
 ```item_negara.xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -61,9 +61,17 @@ dependencies {
         tools:listitem="@layout/item_negara" />
 ```
 
-### #3 Create data
+### #3 Create data class
+```Negara.kt
+data class Negara (
+    val nama_negara: String,
+    val ibukota: String
+)
+```
+
+### #4 Create list
 ```MainActivity.kt
-val listNegara = mutableListOf(
+val listNegara = listOf(
     Negara("Indonesia", "jakarta"),
     Negara("Malaysia", "Kuala Lumpur"),
     Negara("Thailand", "Bangkok"),
@@ -72,7 +80,7 @@ val listNegara = mutableListOf(
 )
 ```
 
-### #4 Setup adapter callback
+### #5 Setup adapter callback
 ```MainActivity.kt
 // create adapter callback for init component
 val adapterCallback = object : AdapterCallback<Negara> {
@@ -87,7 +95,7 @@ val adapterCallback = object : AdapterCallback<Negara> {
 }
 ```
 
-### #5 setup recyclerview & adapter
+### #6 setup recyclerview & adapter
 ```MainActivity.kt
 // create and set adapter on recyclerview
 val recyclerview = rv_negara
@@ -98,6 +106,7 @@ recyclerview.apply {
         this.addData(listNegara)
         this.adapterCallback = adapterCallback
     }
-
 }
 ```
+
+## Sample code
