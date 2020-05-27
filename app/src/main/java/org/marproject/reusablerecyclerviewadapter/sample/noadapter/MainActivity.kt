@@ -1,4 +1,4 @@
-package org.marproject.reusablerecyclerviewadapter
+package org.marproject.reusablerecyclerviewadapter.sample.noadapter
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +7,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_negara.view.*
+import org.marproject.reusablerecyclerviewadapter.AdapterCallback
+import org.marproject.reusablerecyclerviewadapter.model.Negara
+import org.marproject.reusablerecyclerviewadapter.R
+import org.marproject.reusablerecyclerviewadapter.ReusableAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,15 +20,16 @@ class MainActivity : AppCompatActivity() {
 
         // create data
         val listNegara = listOf(
-            Negara("Indonesia", "jakarta"),
-            Negara("Malaysia", "Kuala Lumpur"),
-            Negara("Thailand", "Bangkok"),
-            Negara("Vietnam", "Hanoi"),
-            Negara("Filipina", "Manila")
+            Negara("Indonesia","jakarta"),
+            Negara("Malaysia","Kuala Lumpur"),
+            Negara("Thailand","Bangkok"),
+            Negara("Vietnam","Hanoi"),
+            Negara("Filipina","Manila")
         )
 
         // create adapter callback for init component
-        val adapterCallback = object : AdapterCallback<Negara> {
+        val adapterCallback = object :
+            AdapterCallback<Negara> {
             override fun initComponent(itemView: View, data: Negara, itemIndex: Int) {
                 itemView.tv_nama_negara.text = data.nama_negara
                 itemView.tv_ibukota.text = data.ibukota
@@ -35,16 +40,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // create adapter
+        val adapter = ReusableAdapter<Negara>(R.layout.item_negara).apply {
+            this.addData(listNegara)
+            this.adapterCallback = adapterCallback
+        }
+
         // create and set adapter on recyclerview
         val recyclerview = rv_negara
         recyclerview.apply {
+            this.adapter = adapter
             this.layoutManager = LinearLayoutManager(this@MainActivity)
-
-            this.adapter = ReusableAdapter<Negara>(R.layout.item_negara).apply {
-                this.addData(listNegara)
-                this.adapterCallback = adapterCallback
-            }
-
         }
 
     }

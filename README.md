@@ -55,10 +55,10 @@ dependencies {
 ### #2 Create xml view on activity_main.xml
 ```activity_main.xml
 <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_negara"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item_negara" />
+    android:id="@+id/rv_negara"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:listitem="@layout/item_negara" />
 ```
 
 ### #3 Create data class
@@ -95,23 +95,28 @@ val adapterCallback = object : AdapterCallback<Negara> {
 }
 ```
 
-### #6 setup recyclerview & adapter
+### #6 setup reusable-adapter
+```MainActivity.kt
+// create adapter
+val adapter = ReusableAdapter<Negara>(R.layout.item_negara).apply {
+    this.addData(listNegara)
+    this.adapterCallback = adapterCallback
+}
+```
+
+### #7 setup recyclerview 
 ```MainActivity.kt
 // create and set adapter on recyclerview
 val recyclerview = rv_negara
 recyclerview.apply {
+    this.adapter = adapter
     this.layoutManager = LinearLayoutManager(this@MainActivity)
-
-    this.adapter = ReusableAdapter<Negara>(R.layout.item_negara).apply {
-        this.addData(listNegara)
-        this.adapterCallback = adapterCallback
-    }
 }
 ```
 
 ## Sample code
 ### MainActivity.kt
-https://github.com/azmirizkifar20/reusable-recyclerview-adapter/blob/master/app/src/main/java/org/marproject/reusablerecyclerviewadapter/MainActivity.kt
+
 
 ## Show your support
 Give a star and fork if this project helped you!
