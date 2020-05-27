@@ -1,6 +1,5 @@
 package org.marproject.reusablerecyclerviewadapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,8 +60,6 @@ class ReusableAdapter<T>(
                 adapterCallback?.onItemClicked(it, listData[position], position)
             }
         }
-
-        Log.i("filterable", filterable.toString())
     }
 
     override fun getFilter(): Filter {
