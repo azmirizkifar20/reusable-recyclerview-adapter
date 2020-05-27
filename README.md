@@ -11,8 +11,11 @@ Support from Android 4.4 KitKat / Minimum API 19
 Add repository in build.gradle
 <br>*Tambahkan repository di build.gradle*
 ```gradle
-repositories {
-    maven { url "https://jitpack.io" }
+allprojects {
+    repositories {
+        ...
+        maven { url "https://jitpack.io" }
+    }
 }
 ```
 And add dependencies
