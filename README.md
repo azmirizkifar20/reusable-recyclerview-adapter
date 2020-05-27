@@ -1,6 +1,6 @@
 # Reusable Recyclerview Adapter
 
-An Android libs for recyclerview adapter including support filterable data for searchview or material search bar. So you don't need to create class adapter if you want to use recyclerview.
+An Android libs for recyclerview adapter including support filterable data for searchview or material search bar. So you don't need to create class adapter if want to use recyclerview.
 <br><br>*Sebuah library Android untuk adapter recyclerview termasuk mendukung filterable data untuk penggunaan searchview atau material search bar. Jadi anda tidak perlu membuat class adapter jika ingin menggunakan recyclerview.*
 
 ## Support 
@@ -61,6 +61,43 @@ dependencies {
         tools:listitem="@layout/item_negara" />
 ```
 
+### #3 Create data
+```MainActivity.kt
+val listNegara = mutableListOf(
+    Negara("Indonesia", "jakarta"),
+    Negara("Malaysia", "Kuala Lumpur"),
+    Negara("Thailand", "Bangkok"),
+    Negara("Vietnam", "Hanoi"),
+    Negara("Filipina", "Manila")
+)
+```
 
+### #4 Setup adapter callback
+```MainActivity.kt
+// create adapter callback for init component
+val adapterCallback = object : AdapterCallback<Negara> {
+    override fun initComponent(itemView: View, data: Negara, itemIndex: Int) {
+        itemView.tv_nama_negara.text = data.nama_negara
+        itemView.tv_ibukota.text = data.ibukota
+    }
 
+    override fun onItemClicked(itemView: View, data: Negara, itemIndex: Int) {
+        Toast.makeText(this@MainActivity, data.nama_negara, Toast.LENGTH_SHORT).show()
+    }
+}
+```
 
+### #5 setup recyclerview & adapter
+```MainActivity.kt
+// create and set adapter on recyclerview
+val recyclerview = rv_negara
+recyclerview.apply {
+    this.layoutManager = LinearLayoutManager(this@MainActivity)
+
+    this.adapter = ReusableAdapter<Negara>(R.layout.item_negara).apply {
+        this.addData(listNegara)
+        this.adapterCallback = adapterCallback
+    }
+
+}
+```
