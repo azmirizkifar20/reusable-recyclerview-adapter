@@ -122,5 +122,9 @@ recyclerview.apply {
 2. [Reusable adapter with searchView](https://github.com/azmirizkifar20/reusable-recyclerview-adapter/blob/master/app/src/main/java/org/marproject/reusablerecyclerviewadapter/sample/searchview/MainActivity.kt) <br>
 3. [Full sample code & project](https://github.com/azmirizkifar20/reusable-adapter-sample)
 
+## searchview screenshot
+<span align="center"><img width="200px" height="360px" src="assets/image/searchview.png"></span>
+<span align="center"><img width="200px" height="360px" src="assets/image/searchview2.png"></span>
+
 ## Show your support
 Give a star and fork if this project helped you!
