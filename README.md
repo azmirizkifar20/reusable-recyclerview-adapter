@@ -110,3 +110,5 @@ recyclerview.apply {
 ```
 
 ## Sample code
+### MainActivity.kt
+https://github.com/azmirizkifar20/reusable-recyclerview-adapter/blob/master/app/src/main/java/org/marproject/reusablerecyclerviewadapter/MainActivity.kt
