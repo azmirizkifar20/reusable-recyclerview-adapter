@@ -28,8 +28,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         // create adapter callback for init component
-        val adapterCallback = object :
-            AdapterCallback<Negara> {
+        val adapterCallback = object : AdapterCallback<Negara> {
             override fun initComponent(itemView: View, data: Negara, itemIndex: Int) {
                 itemView.tv_nama_negara.text = data.nama_negara
                 itemView.tv_ibukota.text = data.ibukota
