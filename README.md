@@ -114,4 +114,4 @@ recyclerview.apply {
 https://github.com/azmirizkifar20/reusable-recyclerview-adapter/blob/master/app/src/main/java/org/marproject/reusablerecyclerviewadapter/MainActivity.kt
 
 ## Show your support
-Give a ⭐️& fork if this project helped you!
+Give a star and fork if this project helped you!
