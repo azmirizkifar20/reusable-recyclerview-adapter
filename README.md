@@ -25,7 +25,7 @@ dependencies {
 ```
 
 ## How to use
-### #1 Create xml item
+### #1 Create xml item (item_negara.xml)
 ```item_negara.xml
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -52,7 +52,7 @@ dependencies {
 </LinearLayout>
 ```
 
-### #2 Create xml view
+### #2 Create xml view on activity_main.xml
 ```activity_main.xml
 <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_negara"
@@ -112,3 +112,6 @@ recyclerview.apply {
 ## Sample code
 ### MainActivity.kt
 https://github.com/azmirizkifar20/reusable-recyclerview-adapter/blob/master/app/src/main/java/org/marproject/reusablerecyclerviewadapter/MainActivity.kt
+
+## Show your support
+Give a ⭐️& fork if this project helped you!
