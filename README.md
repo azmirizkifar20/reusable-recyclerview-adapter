@@ -1,5 +1,4 @@
 # Reusable Recyclerview Adapter
-
 An Android libs for recyclerview adapter including support filterable data for searchview or material search bar. So you don't need to create class adapter if want to use recyclerview.
 <br><br>*Sebuah library Android untuk adapter recyclerview termasuk mendukung filterable data untuk penggunaan searchview atau material search bar. Jadi anda tidak perlu membuat class adapter jika ingin menggunakan recyclerview.*
 
@@ -23,7 +22,7 @@ And add dependencies
 ```gradle
 dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.github.azmirizkifar20:reusable-recyclerview-adapter:1.0.0'
+    implementation 'com.github.azmirizkifar20:reusable-recyclerview-adapter:1.0.1'
 }
 ```
 
@@ -103,7 +102,7 @@ val adapterCallback = object : AdapterCallback<Negara> {
 // create adapter
 val adapter = ReusableAdapter<Negara>(R.layout.item_negara).apply {
     this.addData(listNegara)
-    this.adapterCallback = adapterCallback
+    this.adapterCallback(adapterCallback)
 }
 ```
 
@@ -123,8 +122,8 @@ recyclerview.apply {
 3. [Full sample code & project](https://github.com/azmirizkifar20/reusable-adapter-sample)
 
 ## searchview screenshot
-<span align="center"><img width="240px" height="400px" src="assets/image/searchview.png"></span>
-<span align="center"><img width="240px" height="400px" src="assets/image/searchview2.png"></span>
+<span align="center"><img width="240px" height="420px" src="assets/image/searchview.png"></span>
+<span align="center"><img width="240px" height="420px" src="assets/image/searchview2.png"></span>
 
 ## Show your support
 Give a star and fork if this project helped you!
