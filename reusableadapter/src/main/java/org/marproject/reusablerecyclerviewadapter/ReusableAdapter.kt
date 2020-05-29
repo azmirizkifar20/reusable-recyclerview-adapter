@@ -6,36 +6,22 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import org.marproject.reusablerecyclerviewadapter.interfaces.AdapterCallbackInterface
+import org.marproject.reusablerecyclerviewadapter.interfaces.ReusableAdapterInterface
 import java.util.*
 
 class ReusableAdapter<T>(
     private var layout: Int,
     private var filterable: Boolean = false
-) : RecyclerView.Adapter<ReusableAdapter<T>.ViewHolder>(), Filterable {
+) : RecyclerView.Adapter<ReusableAdapter<T>.ViewHolder>(),
+    ReusableAdapterInterface<T>, Filterable {
 
     // utils
     var listData = mutableListOf<T>()
     var currentList = mutableListOf<T>()
-    var adapterCallback: AdapterCallback<T>? = null
 
-    // append data
-    fun addData(items: List<T>) {
-        listData = items as MutableList<T>
-        currentList = listData
-        notifyDataSetChanged()
-    }
-
-    // realtime change
-    fun updateData(item: T) {
-        if (!listData.contains(item)) {
-            listData.add(item)
-        } else {
-            val index = listData.indexOf(item)
-            listData[index] = item
-        }
-
-        notifyDataSetChanged()
-    }
+    // callback
+    lateinit var adapterCallbackInterface: AdapterCallbackInterface<T>
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -50,16 +36,37 @@ class ReusableAdapter<T>(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (filterable) {
-            adapterCallback?.initComponent(holder.itemView, currentList[position], position)
+            adapterCallbackInterface.initComponent(holder.itemView, currentList[position], position)
             holder.itemView.setOnClickListener {
-                adapterCallback?.onItemClicked(it, currentList[position], position)
+                adapterCallbackInterface.onItemClicked(it, currentList[position], position)
             }
         } else {
-            adapterCallback?.initComponent(holder.itemView, listData[position], position)
+            adapterCallbackInterface.initComponent(holder.itemView, listData[position], position)
             holder.itemView.setOnClickListener {
-                adapterCallback?.onItemClicked(it, listData[position], position)
+                adapterCallbackInterface.onItemClicked(it, listData[position], position)
             }
         }
+    }
+
+    override fun addData(items: List<T>) {
+        listData = items as MutableList<T>
+        currentList = listData
+        notifyDataSetChanged()
+    }
+
+    override fun updateData(item: T) {
+        if (!listData.contains(item)) {
+            listData.add(item)
+        } else {
+            val index = listData.indexOf(item)
+            listData[index] = item
+        }
+
+        notifyDataSetChanged()
+    }
+
+    override fun adapterCallback(adapterCallback: AdapterCallbackInterface<T>) {
+        adapterCallbackInterface = adapterCallback
     }
 
     override fun getFilter(): Filter {
@@ -70,8 +77,8 @@ class ReusableAdapter<T>(
                 search?.let {
                     val resultList = mutableListOf<T>()
                     for (row in listData) {
-                        if (row.toString().toLowerCase(Locale.ROOT).contains(search.toLowerCase(
-                                Locale.ROOT))) {
+                        if (row.toString().toLowerCase(Locale.ROOT)
+                                .contains(search.toLowerCase(Locale.ROOT))) {
                             resultList.add(row)
                         }
                     }
@@ -94,4 +101,5 @@ class ReusableAdapter<T>(
 
         }
     }
+
 }
