@@ -2,7 +2,7 @@ package org.marproject.reusablerecyclerviewadapter.interfaces
 
 import android.view.View
 
-interface AdapterCallbackInterface<T> {
+interface AdapterCallback<T> {
 
     // setup init component
     fun initComponent(itemView: View, data: T, itemIndex: Int)

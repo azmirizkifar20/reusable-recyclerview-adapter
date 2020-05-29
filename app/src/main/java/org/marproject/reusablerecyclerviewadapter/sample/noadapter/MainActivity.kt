@@ -2,15 +2,12 @@ package org.marproject.reusablerecyclerviewadapter.sample.noadapter
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_negara.view.*
-import org.marproject.reusablerecyclerviewadapter.interfaces.AdapterCallbackInterface
+import org.marproject.reusablerecyclerviewadapter.interfaces.AdapterCallback
 import org.marproject.reusablerecyclerviewadapter.model.Negara
 import org.marproject.reusablerecyclerviewadapter.R
 import org.marproject.reusablerecyclerviewadapter.ReusableAdapter
@@ -31,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         // create adapter callback for init component
-        val adapterCallback = object : AdapterCallbackInterface<Negara> {
+        val adapterCallback = object : AdapterCallback<Negara> {
             override fun initComponent(itemView: View, data: Negara, itemIndex: Int) {
                 itemView.tv_nama_negara.text = data.nama_negara
                 itemView.tv_ibukota.text = data.ibukota

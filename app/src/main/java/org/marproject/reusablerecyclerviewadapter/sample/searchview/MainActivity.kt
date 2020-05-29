@@ -1,6 +1,6 @@
 package org.marproject.reusablerecyclerviewadapter.sample.searchview
 
-import org.marproject.reusablerecyclerviewadapter.interfaces.AdapterCallbackInterface
+import org.marproject.reusablerecyclerviewadapter.interfaces.AdapterCallback
 import org.marproject.reusablerecyclerviewadapter.model.Negara
 import org.marproject.reusablerecyclerviewadapter.R
 import org.marproject.reusablerecyclerviewadapter.ReusableAdapter
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         // create adapter callback for init component
-        val adapterCallback = object : AdapterCallbackInterface<Negara> {
+        val adapterCallback = object : AdapterCallback<Negara> {
             override fun initComponent(itemView: View, data: Negara, itemIndex: Int) {
                 itemView.tv_nama_negara.text = data.nama_negara
                 itemView.tv_ibukota.text = data.ibukota

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import org.marproject.reusablerecyclerviewadapter.interfaces.AdapterCallbackInterface
+import org.marproject.reusablerecyclerviewadapter.interfaces.AdapterCallback
 import org.marproject.reusablerecyclerviewadapter.interfaces.ReusableAdapterInterface
 import java.util.*
 
@@ -21,7 +21,7 @@ class ReusableAdapter<T>(
     var currentList = mutableListOf<T>()
 
     // callback
-    lateinit var adapterCallbackInterface: AdapterCallbackInterface<T>
+    lateinit var adapterCallback: AdapterCallback<T>
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -36,14 +36,14 @@ class ReusableAdapter<T>(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (filterable) {
-            adapterCallbackInterface.initComponent(holder.itemView, currentList[position], position)
+            adapterCallback.initComponent(holder.itemView, currentList[position], position)
             holder.itemView.setOnClickListener {
-                adapterCallbackInterface.onItemClicked(it, currentList[position], position)
+                adapterCallback.onItemClicked(it, currentList[position], position)
             }
         } else {
-            adapterCallbackInterface.initComponent(holder.itemView, listData[position], position)
+            adapterCallback.initComponent(holder.itemView, listData[position], position)
             holder.itemView.setOnClickListener {
-                adapterCallbackInterface.onItemClicked(it, listData[position], position)
+                adapterCallback.onItemClicked(it, listData[position], position)
             }
         }
     }
@@ -65,8 +65,8 @@ class ReusableAdapter<T>(
         notifyDataSetChanged()
     }
 
-    override fun adapterCallback(adapterCallback: AdapterCallbackInterface<T>) {
-        adapterCallbackInterface = adapterCallback
+    override fun adapterCallback(adapterCallback: AdapterCallback<T>) {
+        this.adapterCallback = adapterCallback
     }
 
     override fun getFilter(): Filter {

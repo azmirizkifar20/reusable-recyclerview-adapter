@@ -9,6 +9,6 @@ interface ReusableAdapterInterface<T> {
     fun updateData(item: T)
 
     // adapter callback
-    fun adapterCallback(adapterCallback: AdapterCallbackInterface<T>)
+    fun adapterCallback(adapterCallback: AdapterCallback<T>)
 
 }
