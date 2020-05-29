@@ -22,7 +22,7 @@ And add dependencies
 ```gradle
 dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.github.azmirizkifar20:reusable-recyclerview-adapter:1.0.1'
+    implementation 'com.github.azmirizkifar20:reusable-recyclerview-adapter:1.0.2'
 }
 ```
 
