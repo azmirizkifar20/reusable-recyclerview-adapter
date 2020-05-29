@@ -1,27 +1,31 @@
 package org.marproject.reusablerecyclerviewadapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.marproject.reusablerecyclerviewadapter.interfaces.AdapterCallback
 import org.marproject.reusablerecyclerviewadapter.interfaces.ReusableAdapterInterface
 import java.util.*
+import kotlin.properties.Delegates
 
 class ReusableAdapter<T>(
-    private var layout: Int,
-    private var filterable: Boolean = false
+    private var context: Context
 ) : RecyclerView.Adapter<ReusableAdapter<T>.ViewHolder>(),
-    ReusableAdapterInterface<T>, Filterable {
+    ReusableAdapterInterface<T>,
+    Filterable {
 
     // utils
     var listData = mutableListOf<T>()
     var currentList = mutableListOf<T>()
-
-    // callback
-    lateinit var adapterCallback: AdapterCallback<T>
+    private var filterable: Boolean = false
+    private var layout by Delegates.notNull<Int>()
+    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var adapterCallback: AdapterCallback<T>
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -48,13 +52,24 @@ class ReusableAdapter<T>(
         }
     }
 
-    override fun addData(items: List<T>) {
+    override fun setLayout(layout: Int): ReusableAdapter<T> {
+        this.layout = layout
+        return this
+    }
+
+    override fun filterable(): ReusableAdapter<T> {
+        this.filterable = true
+        return this
+    }
+
+    override fun addData(items: List<T>): ReusableAdapter<T> {
         listData = items as MutableList<T>
         currentList = listData
         notifyDataSetChanged()
+        return this
     }
 
-    override fun updateData(item: T) {
+    override fun updateData(item: T): ReusableAdapter<T> {
         if (!listData.contains(item)) {
             listData.add(item)
         } else {
@@ -63,10 +78,32 @@ class ReusableAdapter<T>(
         }
 
         notifyDataSetChanged()
+        return this
     }
 
-    override fun adapterCallback(adapterCallback: AdapterCallback<T>) {
+    override fun adapterCallback(adapterCallback: AdapterCallback<T>): ReusableAdapter<T> {
         this.adapterCallback = adapterCallback
+        return this
+    }
+
+    override fun isVerticalView(): ReusableAdapter<T> {
+        layoutManager = LinearLayoutManager(context,
+            LinearLayoutManager.VERTICAL, false)
+        return this
+    }
+
+    override fun isHorizontalView(): ReusableAdapter<T> {
+        layoutManager = LinearLayoutManager(context,
+            LinearLayoutManager.HORIZONTAL, false)
+        return this
+    }
+
+    override fun build(recyclerView: RecyclerView): ReusableAdapter<T> {
+        recyclerView.apply {
+            this.adapter = this@ReusableAdapter
+            this.layoutManager = this@ReusableAdapter.layoutManager
+        }
+        return this
     }
 
     override fun getFilter(): Filter {

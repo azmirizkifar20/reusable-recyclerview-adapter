@@ -22,11 +22,64 @@ And add dependencies
 ```gradle
 dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.github.azmirizkifar20:reusable-recyclerview-adapter:1.0.2'
+    implementation 'com.github.azmirizkifar20:reusable-recyclerview-adapter:1.0.3'
 }
 ```
 
 ## How to use
+### First Setup adapterCallback
+```MainActivity.kt
+val adapterCallback = object : AdapterCallback<Model> {
+    override fun initComponent(itemView: View, data: Negara, itemIndex: Int) {
+        // init component here
+    }
+
+    override fun onItemClicked(itemView: View, data: Negara, itemIndex: Int) {
+        // add logic here
+    }
+}
+```
+
+### Then setup reusable-adapter
+```MainActivity.kt
+// setup adapter
+ReusableAdapter<Model>(this)
+    .adapterCallback(adapterCallback)
+    .setLayout(R.layout.example_layout)
+    .addData(listData)
+    .isVerticalView()
+    .build(recyclerview)
+```
+
+### Component of reusable-adapter
+```ReusableAdapter.kt
+// #1 create reusable-adapter
+ReusableAdapter<Model>(context: Context)
+
+// #2 adapter callback (required)
+adapterCallback(adapterCallback: AdapterCallback<Model>) 
+
+// #3 set layout of recyclerview (required)
+setLayout(layout: Int)
+
+// #4 set orientation view (required) [choose one]
+isVerticalView()
+isHorizontalView()
+
+// #5 add list of data (required)
+addData(listData: List<Model>)
+
+// #6 update data for realtime change (optional)
+updateData(data: Model)
+
+// #7 filterable for searchview (optional)
+filterable()
+
+// #8 the last and required component
+build(recyclerView: RecyclerView)
+```
+
+## Sample code
 ### #1 Create xml item (item_negara.xml)
 ```item_negara.xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -99,24 +152,16 @@ val adapterCallback = object : AdapterCallback<Negara> {
 
 ### #6 setup reusable-adapter
 ```MainActivity.kt
-// create adapter
-val adapter = ReusableAdapter<Negara>(R.layout.item_negara).apply {
-    this.addData(listNegara)
-    this.adapterCallback(adapterCallback)
-}
+// setup adapter
+ReusableAdapter<Negara>(this)
+    .adapterCallback(adapterCallback)
+    .setLayout(R.layout.item_negara)
+    .addData(listNegara)
+    .isVerticalView()
+    .build(rv_negara)
 ```
 
-### #7 setup recyclerview 
-```MainActivity.kt
-// create and set adapter on recyclerview
-val recyclerview = rv_negara
-recyclerview.apply {
-    this.adapter = adapter
-    this.layoutManager = LinearLayoutManager(this@MainActivity)
-}
-```
-
-## Sample code
+## Full sample code
 1. [Reusable adapter](https://github.com/azmirizkifar20/reusable-recyclerview-adapter/blob/master/app/src/main/java/org/marproject/reusablerecyclerviewadapter/sample/noadapter/MainActivity.kt) <br>
 2. [Reusable adapter with searchView](https://github.com/azmirizkifar20/reusable-recyclerview-adapter/blob/master/app/src/main/java/org/marproject/reusablerecyclerviewadapter/sample/searchview/MainActivity.kt) <br>
 3. [Full sample code & project](https://github.com/azmirizkifar20/reusable-adapter-sample)

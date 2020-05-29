@@ -11,7 +11,6 @@ import android.view.Menu
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_negara.view.*
 
@@ -25,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // init adapter
-        adapter = ReusableAdapter(R.layout.item_negara, true)
+        adapter = ReusableAdapter(this)
 
         // create data
         val listNegara = listOf(
@@ -33,7 +32,8 @@ class MainActivity : AppCompatActivity() {
             Negara("Malaysia","Kuala Lumpur"),
             Negara("Thailand","Bangkok"),
             Negara("Vietnam","Hanoi"),
-            Negara("Filipina","Manila")
+            Negara("Filipina","Manila"),
+            Negara("Australia","Canberra")
         )
 
         // create adapter callback for init component
@@ -49,15 +49,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         // set data and callback adapter
-        adapter.apply {
-            this.addData(listNegara)
-            this.adapterCallback(adapterCallback)
-        }
-
-        // create and set adapter on recyclerview
-        val recyclerview = rv_negara
-        recyclerview.adapter = adapter
-        recyclerview.layoutManager = LinearLayoutManager(this@MainActivity)
+        adapter.filterable()
+            .adapterCallback(adapterCallback)
+            .setLayout(R.layout.item_negara)
+            .isVerticalView()
+            .addData(listNegara)
+            .build(rv_negara)
 
     }
 

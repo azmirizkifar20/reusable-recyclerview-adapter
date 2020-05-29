@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_negara.view.*
 import org.marproject.reusablerecyclerviewadapter.interfaces.AdapterCallback
@@ -24,7 +23,8 @@ class MainActivity : AppCompatActivity() {
             Negara("Malaysia","Kuala Lumpur"),
             Negara("Thailand","Bangkok"),
             Negara("Vietnam","Hanoi"),
-            Negara("Filipina","Manila")
+            Negara("Filipina","Manila"),
+            Negara("Australia","Canberra")
         )
 
         // create adapter callback for init component
@@ -35,22 +35,18 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onItemClicked(itemView: View, data: Negara, itemIndex: Int) {
-                Toast.makeText(this@MainActivity, data.nama_negara, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity,
+                    data.nama_negara, Toast.LENGTH_SHORT).show()
             }
         }
 
-        // create adapter
-        val adapter = ReusableAdapter<Negara>(R.layout.item_negara).apply {
-            this.addData(listNegara)
-            this.adapterCallback(adapterCallback)
-        }
-
-        // create and set adapter on recyclerview
-        val recyclerview = rv_negara
-        recyclerview.apply {
-            this.adapter = adapter
-            this.layoutManager = LinearLayoutManager(this@MainActivity)
-        }
+        // setup adapter
+        ReusableAdapter<Negara>(this)
+            .adapterCallback(adapterCallback)
+            .setLayout(R.layout.item_negara)
+            .isVerticalView()
+            .addData(listNegara)
+            .build(rv_negara)
 
     }
 }
