@@ -22,7 +22,7 @@ And add dependencies
 ```gradle
 dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.github.azmirizkifar20:reusable-recyclerview-adapter:1.0.2'
+    implementation 'com.github.azmirizkifar20:reusable-recyclerview-adapter:1.0.3'
 }
 ```
 
@@ -100,20 +100,19 @@ val adapterCallback = object : AdapterCallback<Negara> {
 ### #6 setup reusable-adapter
 ```MainActivity.kt
 // create adapter
-val adapter = ReusableAdapter<Negara>(R.layout.item_negara).apply {
-    this.addData(listNegara)
-    this.adapterCallback(adapterCallback)
-}
+val adapter = ReusableAdapter<Negara>()
+    .setLayout(R.layout.item_negara)
+    .adapterCallback(adapterCallback)
+    .addData(listNegara)
 ```
 
-### #7 setup recyclerview 
+### #7 setup recyclerview adapter
 ```MainActivity.kt
-// create and set adapter on recyclerview
-val recyclerview = rv_negara
-recyclerview.apply {
-    this.adapter = adapter
-    this.layoutManager = LinearLayoutManager(this@MainActivity)
-}
+// set adapter
+AdapterUtils<Negara>(this)
+    .isVerticalView(true)
+    .setAdapter(adapter)
+    .build(rv_negara)
 ```
 
 ## Sample code

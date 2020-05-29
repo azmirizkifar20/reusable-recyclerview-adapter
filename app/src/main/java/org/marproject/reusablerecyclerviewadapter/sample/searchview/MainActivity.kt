@@ -11,9 +11,9 @@ import android.view.Menu
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_negara.view.*
+import org.marproject.reusablerecyclerviewadapter.AdapterUtils
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // init adapter
-        adapter = ReusableAdapter(R.layout.item_negara, true)
+        adapter = ReusableAdapter()
 
         // create data
         val listNegara = listOf(
@@ -49,15 +49,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         // set data and callback adapter
-        adapter.apply {
-            this.addData(listNegara)
-            this.adapterCallback(adapterCallback)
-        }
+        adapter.filterable()
+            .addData(listNegara)
+            .setLayout(R.layout.item_negara)
+            .adapterCallback(adapterCallback)
 
         // create and set adapter on recyclerview
-        val recyclerview = rv_negara
-        recyclerview.adapter = adapter
-        recyclerview.layoutManager = LinearLayoutManager(this@MainActivity)
+        AdapterUtils<Negara>(this)
+            .isVerticalView(true)
+            .setAdapter(adapter)
+            .build(rv_negara)
 
     }
 

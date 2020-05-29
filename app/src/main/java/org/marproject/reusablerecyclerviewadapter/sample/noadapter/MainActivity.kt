@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_negara.view.*
+import org.marproject.reusablerecyclerviewadapter.AdapterUtils
 import org.marproject.reusablerecyclerviewadapter.interfaces.AdapterCallback
 import org.marproject.reusablerecyclerviewadapter.model.Negara
 import org.marproject.reusablerecyclerviewadapter.R
@@ -40,17 +40,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         // create adapter
-        val adapter = ReusableAdapter<Negara>(R.layout.item_negara).apply {
-            this.addData(listNegara)
-            this.adapterCallback(adapterCallback)
-        }
+        val adapter = ReusableAdapter<Negara>()
+            .setLayout(R.layout.item_negara)
+            .adapterCallback(adapterCallback)
+            .addData(listNegara)
 
-        // create and set adapter on recyclerview
-        val recyclerview = rv_negara
-        recyclerview.apply {
-            this.adapter = adapter
-            this.layoutManager = LinearLayoutManager(this@MainActivity)
-        }
+        // set adapter
+        AdapterUtils<Negara>(this)
+            .isVerticalView(true)
+            .setAdapter(adapter)
+            .build(rv_negara)
 
     }
 }

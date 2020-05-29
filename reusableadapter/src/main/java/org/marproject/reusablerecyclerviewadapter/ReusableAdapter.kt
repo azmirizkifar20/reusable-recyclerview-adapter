@@ -9,19 +9,20 @@ import androidx.recyclerview.widget.RecyclerView
 import org.marproject.reusablerecyclerviewadapter.interfaces.AdapterCallback
 import org.marproject.reusablerecyclerviewadapter.interfaces.ReusableAdapterInterface
 import java.util.*
+import kotlin.properties.Delegates
 
-class ReusableAdapter<T>(
-    private var layout: Int,
-    private var filterable: Boolean = false
-) : RecyclerView.Adapter<ReusableAdapter<T>.ViewHolder>(),
-    ReusableAdapterInterface<T>, Filterable {
+class ReusableAdapter<T> : RecyclerView.Adapter<ReusableAdapter<T>.ViewHolder>(),
+    ReusableAdapterInterface<T>,
+    Filterable {
 
     // utils
     var listData = mutableListOf<T>()
     var currentList = mutableListOf<T>()
+    private var filterable: Boolean = false
+    private var layout by Delegates.notNull<Int>()
 
     // callback
-    lateinit var adapterCallback: AdapterCallback<T>
+    private lateinit var adapterCallback: AdapterCallback<T>
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -48,13 +49,24 @@ class ReusableAdapter<T>(
         }
     }
 
-    override fun addData(items: List<T>) {
+    override fun setLayout(layout: Int): ReusableAdapter<T> {
+        this.layout = layout
+        return this
+    }
+
+    override fun filterable(): ReusableAdapter<T> {
+        this.filterable = true
+        return this
+    }
+
+    override fun addData(items: List<T>): ReusableAdapter<T> {
         listData = items as MutableList<T>
         currentList = listData
         notifyDataSetChanged()
+        return this
     }
 
-    override fun updateData(item: T) {
+    override fun updateData(item: T): ReusableAdapter<T> {
         if (!listData.contains(item)) {
             listData.add(item)
         } else {
@@ -63,10 +75,12 @@ class ReusableAdapter<T>(
         }
 
         notifyDataSetChanged()
+        return this
     }
 
-    override fun adapterCallback(adapterCallback: AdapterCallback<T>) {
+    override fun adapterCallback(adapterCallback: AdapterCallback<T>): ReusableAdapter<T> {
         this.adapterCallback = adapterCallback
+        return this
     }
 
     override fun getFilter(): Filter {
