@@ -30,11 +30,11 @@ dependencies {
 ### First Setup adapterCallback
 ```MainActivity.kt
 val adapterCallback = object : AdapterCallback<Model> {
-    override fun initComponent(itemView: View, data: Negara, itemIndex: Int) {
+    override fun initComponent(itemView: View, data: Model, itemIndex: Int) {
         // init component here
     }
 
-    override fun onItemClicked(itemView: View, data: Negara, itemIndex: Int) {
+    override fun onItemClicked(itemView: View, data: Model, itemIndex: Int) {
         // add logic here
     }
 }
