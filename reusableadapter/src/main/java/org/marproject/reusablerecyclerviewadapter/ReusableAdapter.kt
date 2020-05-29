@@ -1,17 +1,21 @@
 package org.marproject.reusablerecyclerviewadapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.marproject.reusablerecyclerviewadapter.interfaces.AdapterCallback
 import org.marproject.reusablerecyclerviewadapter.interfaces.ReusableAdapterInterface
 import java.util.*
 import kotlin.properties.Delegates
 
-class ReusableAdapter<T> : RecyclerView.Adapter<ReusableAdapter<T>.ViewHolder>(),
+class ReusableAdapter<T>(
+    private var context: Context
+) : RecyclerView.Adapter<ReusableAdapter<T>.ViewHolder>(),
     ReusableAdapterInterface<T>,
     Filterable {
 
@@ -20,8 +24,7 @@ class ReusableAdapter<T> : RecyclerView.Adapter<ReusableAdapter<T>.ViewHolder>()
     var currentList = mutableListOf<T>()
     private var filterable: Boolean = false
     private var layout by Delegates.notNull<Int>()
-
-    // callback
+    private lateinit var layoutManager: LinearLayoutManager
     private lateinit var adapterCallback: AdapterCallback<T>
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -80,6 +83,32 @@ class ReusableAdapter<T> : RecyclerView.Adapter<ReusableAdapter<T>.ViewHolder>()
 
     override fun adapterCallback(adapterCallback: AdapterCallback<T>): ReusableAdapter<T> {
         this.adapterCallback = adapterCallback
+        return this
+    }
+
+    override fun isVerticalView(isVertical: Boolean): ReusableAdapter<T> {
+        layoutManager = if (isVertical) {
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        } else {
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        }
+        return this
+    }
+
+    override fun isHorizontalView(isHorizontal: Boolean): ReusableAdapter<T> {
+        layoutManager = if (isHorizontal) {
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        } else {
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        }
+        return this
+    }
+
+    override fun build(recyclerView: RecyclerView): ReusableAdapter<T> {
+        recyclerView.apply {
+            this.adapter = this@ReusableAdapter
+            this.layoutManager = this@ReusableAdapter.layoutManager
+        }
         return this
     }
 

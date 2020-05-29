@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_negara.view.*
-import org.marproject.reusablerecyclerviewadapter.AdapterUtils
 import org.marproject.reusablerecyclerviewadapter.interfaces.AdapterCallback
 import org.marproject.reusablerecyclerviewadapter.model.Negara
 import org.marproject.reusablerecyclerviewadapter.R
@@ -35,20 +34,17 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onItemClicked(itemView: View, data: Negara, itemIndex: Int) {
-                Toast.makeText(this@MainActivity, data.nama_negara, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity,
+                    data.nama_negara, Toast.LENGTH_SHORT).show()
             }
         }
 
-        // create adapter
-        val adapter = ReusableAdapter<Negara>()
-            .setLayout(R.layout.item_negara)
+        // setup adapter
+        ReusableAdapter<Negara>(this)
             .adapterCallback(adapterCallback)
-            .addData(listNegara)
-
-        // set adapter
-        AdapterUtils<Negara>(this)
+            .setLayout(R.layout.item_negara)
             .isVerticalView(true)
-            .setAdapter(adapter)
+            .addData(listNegara)
             .build(rv_negara)
 
     }

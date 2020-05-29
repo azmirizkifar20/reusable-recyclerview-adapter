@@ -13,7 +13,6 @@ import android.widget.SearchView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_negara.view.*
-import org.marproject.reusablerecyclerviewadapter.AdapterUtils
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // init adapter
-        adapter = ReusableAdapter()
+        adapter = ReusableAdapter(this)
 
         // create data
         val listNegara = listOf(
@@ -50,14 +49,10 @@ class MainActivity : AppCompatActivity() {
 
         // set data and callback adapter
         adapter.filterable()
-            .addData(listNegara)
-            .setLayout(R.layout.item_negara)
             .adapterCallback(adapterCallback)
-
-        // create and set adapter on recyclerview
-        AdapterUtils<Negara>(this)
+            .setLayout(R.layout.item_negara)
             .isVerticalView(true)
-            .setAdapter(adapter)
+            .addData(listNegara)
             .build(rv_negara)
 
     }
