@@ -21,8 +21,8 @@ interface ReusableAdapterInterface<T> {
     fun adapterCallback(adapterCallback: AdapterCallback<T>): ReusableAdapter<T>
 
     // layout orientation
-    fun isVerticalView(isVertical: Boolean): ReusableAdapter<T>
-    fun isHorizontalView(isHorizontal: Boolean): ReusableAdapter<T>
+    fun isVerticalView(): ReusableAdapter<T>
+    fun isHorizontalView(): ReusableAdapter<T>
 
     // build view
     fun build(recyclerView: RecyclerView): ReusableAdapter<T>

@@ -46,8 +46,8 @@ val adapterCallback = object : AdapterCallback<Model> {
 ReusableAdapter<Model>(this)
     .adapterCallback(adapterCallback)
     .setLayout(R.layout.example_layout)
-    .isVerticalView(true)
     .addData(listData)
+    .isVerticalView()
     .build(recyclerview)
 ```
 
@@ -63,8 +63,8 @@ adapterCallback(adapterCallback: AdapterCallback<Model>)
 setLayout(layout: Int)
 
 // #4 set orientation view (required) [choose one]
-isVerticalView(isVertical: Boolean)
-isHorizontalView(isHorizontal: Boolean)
+isVerticalView()
+isHorizontalView()
 
 // #5 add list of data (required)
 addData(listData: List<Model>)
@@ -156,8 +156,8 @@ val adapterCallback = object : AdapterCallback<Negara> {
 ReusableAdapter<Negara>(this)
     .adapterCallback(adapterCallback)
     .setLayout(R.layout.item_negara)
-    .isVerticalView(true)
     .addData(listNegara)
+    .isVerticalView()
     .build(rv_negara)
 ```
 

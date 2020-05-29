@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
             Negara("Malaysia","Kuala Lumpur"),
             Negara("Thailand","Bangkok"),
             Negara("Vietnam","Hanoi"),
-            Negara("Filipina","Manila")
+            Negara("Filipina","Manila"),
+            Negara("Australia","Canberra")
         )
 
         // create adapter callback for init component
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         ReusableAdapter<Negara>(this)
             .adapterCallback(adapterCallback)
             .setLayout(R.layout.item_negara)
-            .isVerticalView(true)
+            .isVerticalView()
             .addData(listNegara)
             .build(rv_negara)
 

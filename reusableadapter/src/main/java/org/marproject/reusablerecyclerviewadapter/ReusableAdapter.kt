@@ -86,21 +86,15 @@ class ReusableAdapter<T>(
         return this
     }
 
-    override fun isVerticalView(isVertical: Boolean): ReusableAdapter<T> {
-        layoutManager = if (isVertical) {
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        } else {
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        }
+    override fun isVerticalView(): ReusableAdapter<T> {
+        layoutManager = LinearLayoutManager(context,
+            LinearLayoutManager.VERTICAL, false)
         return this
     }
 
-    override fun isHorizontalView(isHorizontal: Boolean): ReusableAdapter<T> {
-        layoutManager = if (isHorizontal) {
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        } else {
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        }
+    override fun isHorizontalView(): ReusableAdapter<T> {
+        layoutManager = LinearLayoutManager(context,
+            LinearLayoutManager.HORIZONTAL, false)
         return this
     }
 
