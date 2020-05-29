@@ -27,7 +27,7 @@ dependencies {
 ```
 
 ## How to use
-### First Setup adapterCallback first
+### First Setup adapterCallback
 ```MainActivity.kt
 val adapterCallback = object : AdapterCallback<Model> {
     override fun initComponent(itemView: View, data: Negara, itemIndex: Int) {
